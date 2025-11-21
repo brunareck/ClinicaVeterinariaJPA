@@ -4,10 +4,23 @@
  */
 package model.dao;
 
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import model.Consulta;
 /**
  *
  * @author bruna
  */
 public class ConsultaDAO extends PersistenciaJPA {
-    
+    public List<Consulta> listaConsultas() {
+        EntityManager em = getEntityManager();
+        try{
+            TypedQuery<Consulta> query = em.createQuery("SELECT c FROM Consulta c", Consulta.class);
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

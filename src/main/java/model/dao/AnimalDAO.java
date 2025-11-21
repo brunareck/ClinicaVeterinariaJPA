@@ -7,11 +7,20 @@ package model.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-
+import model.Animal;
 /**
  *
  * @author bruna
  */
 public class AnimalDAO extends PersistenciaJPA {
-    
+    public List<Animal> listaAnimais() {
+        EntityManager em = getEntityManager();
+        try{
+            TypedQuery<Animal> query = em.createQuery("SELECT a FROM Animal a", Animal.class);
+            return query.getResultList();
+        } catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
