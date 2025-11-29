@@ -9,5 +9,5 @@ package model;
  * @author bruna
  */
 public enum Especie {
-    CACHORRO, GATO, AVE, CAVALO, PORCO
+    CACHORRO, GATO, AVE, CAVALO, PORCO;
 }

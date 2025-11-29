@@ -14,7 +14,7 @@ import model.Tutor;
  * @author bruna
  */
 public class TutorDAO extends PersistenciaJPA{
-    public List<Tutor> listaTutors() {
+    public List<Tutor> listaTutores() {
         EntityManager em = getEntityManager();
         try{
             TypedQuery<Tutor> query = em.createQuery("SELECT t FROM Tutor t", Tutor.class);

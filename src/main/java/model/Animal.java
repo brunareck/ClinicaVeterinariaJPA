@@ -37,7 +37,10 @@ public class Animal implements Serializable{
     public String getNome() {
         return nome;
     }
-
+    
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
     public int getCodigo() {
         return codigo;
     }
@@ -69,11 +72,14 @@ public class Animal implements Serializable{
     public void setTutor(Tutor tutor) {
         this.tutor = tutor;
     }
-     public void mostrarDados() {
-        System.out.println("Código: " + codigo);
-        System.out.println("Nome: " + nome);
-        System.out.println("Espécie: " + especie);
-        System.out.println("Idade: " + idade);
-        System.out.println("Tutor: " + tutor.getNome());
+     public String exibirDados() {
+         String aux = "Animal cadastrado:\n";
+        aux += "Código: "+codigo+"\n";
+        aux += "Nome: "+nome+"\n";
+        aux += "Espécie: "+especie+"\n";
+        aux += "Idade: "+idade+"\n";
+        aux += "Tutor: "+tutor.getNome()+"\n";
+        
+        return aux;
     }
 }
