@@ -30,7 +30,7 @@ Ele demonstra a aplicação de conceitos de **POO (Programação Orientada a Obj
 
 ---
 
-## 📂 EDiagrama
+## 📂 Diagrama
 
 <img width="617" height="601" alt="Diagrama sem nome drawio (1)" src="https://github.com/user-attachments/assets/661906f1-384f-4cee-8bf8-00e1b9b3bc3a" />
 
