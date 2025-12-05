@@ -4,19 +4,26 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Tutor;
+import model.dao.TutorDAO;
+
 /**
  *
  * @author bruna
  */
 public class ListaTutoresJF extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ListaTutoresJF.class.getName());
-
+    TutorDAO dao;
     /**
      * Creates new form ListaTutoresJF
      */
     public ListaTutoresJF() {
         initComponents();
+        
+        dao = new TutorDAO();
+        loadTabelaTutores();
     }
 
     /**
@@ -28,21 +35,167 @@ public class ListaTutoresJF extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblTutores = new javax.swing.JTable();
+        btnNovo = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnRemover = new javax.swing.JButton();
+        btnInfo = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        tblTutores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Nome", "CPF"
+            }
+        ));
+        jScrollPane1.setViewportView(tblTutores);
+
+        btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnRemover.setText("Remover");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
+
+        btnInfo.setText("Mais Informações");
+        btnInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInfoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnNovo)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEditar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRemover)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnInfo)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNovo)
+                    .addComponent(btnEditar)
+                    .addComponent(btnRemover)
+                    .addComponent(btnInfo))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        CadastroTutorJD telaCadastro = new CadastroTutorJD(this, rootPaneCheckingEnabled);
+        telaCadastro.setVisible(true);
+
+        Tutor novo = telaCadastro.getTutor();
+      
+        if (novo != null) {
+            try {
+                dao.persist(novo);
+                loadTabelaTutores();
+            } catch (Exception ex) {
+                System.err.println("Erro ao adicionar tutor: " + ex);
+            }
+
+        }
+    }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
+         if (tblTutores.getSelectedRow() != -1) {
+            Tutor obj = (Tutor) tblTutores.getModel().
+                    getValueAt(tblTutores.getSelectedRow(), 0);
+            JOptionPane.showMessageDialog(rootPane, obj.exibirDados());
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um tutor");
+        }
+    }//GEN-LAST:event_btnInfoActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        if (tblTutores.getSelectedRow() != -1) {
+            Tutor obj = (Tutor) tblTutores.getModel().
+                    getValueAt(tblTutores.getSelectedRow(), 0);
+            int op_remover = JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja remover " + obj + "?");
+            if (op_remover == JOptionPane.YES_OPTION) {
+                try {
+                    dao.remover(obj);
+                    JOptionPane.showMessageDialog(rootPane, "Tutor removido com sucesso... ");
+                    loadTabelaTutores();
+                } catch (Exception ex) {
+                    System.err.println("Erro ao remover tutor: " + ex);
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um tutor");
+        }
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (tblTutores.getSelectedRow() != -1) {
+            Tutor obj = (Tutor) tblTutores.getModel().
+                    getValueAt(tblTutores.getSelectedRow(), 0);
+
+            CadastroTutorJD telaEdicao = new CadastroTutorJD(this, rootPaneCheckingEnabled);
+            telaEdicao.setTutor(obj);
+
+            telaEdicao.setVisible(true);
+
+            
+            Tutor obj_retornado = telaEdicao.getTutor();
+                    
+        if (obj_retornado != null) {
+            
+            try {
+                dao.persist(obj_retornado);
+                loadTabelaTutores();
+            } catch (Exception ex) {
+                System.err.println("Erro ao editar tutor: " + ex);
+            }
+
+            
+        }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um tutor");
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -53,22 +206,39 @@ public class ListaTutoresJF extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new ListaTutoresJF().setVisible(true));
+         java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ListaTutoresJF().setVisible(true);
+            }
+        });
+    }
+    
+     public void loadTabelaTutores() {
+
+        // Obtém o modelo da tabela - vincular o que definimos no Desing
+        DefaultTableModel modelo = (DefaultTableModel) tblTutores.getModel();
+        //limpar as linhas e popular 
+        modelo.setNumRows(0);
+
+        for (Tutor obj : dao.listaTutores()) {
+            Object[] linha = {
+                obj,
+                obj.getCPF()
+            };
+            modelo.addRow(linha);
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnInfo;
+    private javax.swing.JButton btnNovo;
+    private javax.swing.JButton btnRemover;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblTutores;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package view;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -24,7 +25,7 @@ public class CadastroConsultaJD extends javax.swing.JDialog {
     VeterinarioDAO daoVeterinario;
     TutorDAO daoTutor;
     
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     
 
     private Consulta consulta;
@@ -43,7 +44,7 @@ public class CadastroConsultaJD extends javax.swing.JDialog {
         loadVeterinarios();
         loadTutores();
         
-        txtDataConsulta.setText(LocalDateTime.now().format(formatter));
+        txtDataConsulta.setText(LocalDate.now().format(formatter));
         
     }
     public void loadAnimais(){
@@ -183,19 +184,21 @@ public class CadastroConsultaJD extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try{
-            if(consulta == null);
-                consulta = new Consulta();
+            if (consulta == null) {
+             consulta = new Consulta();
+            }
+
                 
             double valor = Double.parseDouble(txtValor.getText()
                     .replace(",", "."));
-            LocalDateTime dataConsulta = LocalDateTime.parse(txtDataConsulta.getText(), formatter);
+            LocalDate dataConsulta = LocalDate.parse(txtDataConsulta.getText(), formatter);
+         
             
             consulta.setValor(valor);
             consulta.setData(dataConsulta);
             consulta.setAnimal((Animal)cmbAnimal.getSelectedItem());
             consulta.setVeterinario((Veterinario)cmbVeterinario.getSelectedItem());
             consulta.setTutor((Tutor)cmbTutor.getSelectedItem());
-            consulta.getDescricao();
             
             daoAnimal.persist(consulta.getAnimal());
             
@@ -206,7 +209,7 @@ public class CadastroConsultaJD extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Valor inválido. Digite um valor válido.", "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (DateTimeParseException e) {
             consulta = null;
-            JOptionPane.showMessageDialog(this, "Data inválida. Use o formato: dd-MM-yyyy HH:mm", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Data inválida. Use o formato: dd-MM-yyyy", "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             consulta = null;
             JOptionPane.showMessageDialog(this, "Erro ao salvar consulta: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

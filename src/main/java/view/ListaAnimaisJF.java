@@ -44,34 +44,19 @@ public class ListaAnimaisJF extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnRemover = new javax.swing.JButton();
         btnInfo = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        txtBuscaCodigo = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Animais Cadastrados");
 
         tblAnimais.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Código", "Nome", "Espécie"
+                "Nome", "Espécie"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(tblAnimais);
 
         btnNovo.setText("Novo");
@@ -102,42 +87,6 @@ public class ListaAnimaisJF extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Código");
-
-        txtBuscaCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtBuscaCodigoKeyReleased(evt);
-            }
-        });
-
-        jLabel3.setText("Filtro");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtBuscaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,22 +94,19 @@ public class ListaAnimaisJF extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnNovo)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnEditar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnRemover)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnInfo)))
-                        .addGap(0, 1, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel1)
+                        .addGap(0, 267, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnNovo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEditar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRemover)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnInfo)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -168,17 +114,15 @@ public class ListaAnimaisJF extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovo)
                     .addComponent(btnEditar)
                     .addComponent(btnRemover)
                     .addComponent(btnInfo))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -189,43 +133,48 @@ public class ListaAnimaisJF extends javax.swing.JFrame {
         telaCadastro.setVisible(true);
 
         Animal novoAnimal = telaCadastro.getAnimal();
-        try {
-            //JOptionPane.showMessageDialog(rootPane, novoVeiculo);
-            dao.persist(novoAnimal);
-        } catch (Exception ex) {
-            System.out.println("Erro ao castrar o animal "+novoAnimal.toString()+" \n Erro: "+ex);
+        if (novoAnimal != null) {
+            try {
+                dao.persist(novoAnimal);
+                loadTabelaAnimais();
+            } catch (Exception e) {
+                System.err.println("Erro ao cadastrar animal:\n" + e);
+            }
         }
-        loadTabelaAnimais();
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if(tblAnimais.getSelectedRow() != -1){
-            Animal obj = (Animal) dao.buscarPorCodigo((int)tblAnimais.getModel().getValueAt(tblAnimais.getSelectedRow(), 0)).get();
+            Animal obj = (Animal) tblAnimais.getModel().getValueAt(tblAnimais.getSelectedRow(), 0);
+            
             CadastroAnimalJD telaEdicao = new CadastroAnimalJD(this, rootPaneCheckingEnabled);
             telaEdicao.setAnimal(obj);
 
             telaEdicao.setVisible(true);
+            
+            Animal novoAnimal = telaEdicao.getAnimal();
 
-            try {
-                dao.persist(telaEdicao.getAnimal());
-            } catch (Exception ex) {
-                System.err.println("Erro ao editar animal\n Erro: "+ex);
+           if (novoAnimal != null) {
+                try {
+                    dao.persist(novoAnimal);
+                    loadTabelaAnimais();
+                } catch (Exception e) {
+                    System.err.println("Erro ao editar animal:\n" + e);
+                }
             }
-
-            loadTabelaAnimais();
-
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Selecione um animal.");
+            JOptionPane.showMessageDialog(rootPane, "Selecione um animal!");
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         if(tblAnimais.getSelectedRow() != -1){
-            Animal obj = (Animal) dao.buscarPorCodigo((int)tblAnimais.getModel().getValueAt(tblAnimais.getSelectedRow(), 0)).get();
+            Animal obj = (Animal) tblAnimais.getModel().getValueAt(tblAnimais.getSelectedRow(), 0);
             int op_remover = JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja remover "+obj+"?");
             if(op_remover == JOptionPane.YES_OPTION){
                 try {
                     dao.remover(obj);
+                    loadTabelaAnimais();
                 } catch (Exception ex) {
                     System.out.println("Erro ao remover animal "+obj+"\n Erro: "+ex);
                 }
@@ -240,16 +189,12 @@ public class ListaAnimaisJF extends javax.swing.JFrame {
 
     private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
         if(tblAnimais.getSelectedRow() != -1){
-            Animal obj = (Animal) dao.buscarPorCodigo((int)tblAnimais.getModel().getValueAt(tblAnimais.getSelectedRow(), 0)).get();
+           Animal obj = (Animal) tblAnimais.getModel().getValueAt(tblAnimais.getSelectedRow(), 0);
             JOptionPane.showMessageDialog(rootPane, obj.exibirDados());
         } else {
             JOptionPane.showMessageDialog(rootPane, "Selecione um animal.");
         }
     }//GEN-LAST:event_btnInfoActionPerformed
-
-    private void txtBuscaCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaCodigoKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscaCodigoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -282,10 +227,10 @@ public class ListaAnimaisJF extends javax.swing.JFrame {
     
     public void loadTabelaAnimais(){
         DefaultTableModel modelo = (DefaultTableModel) tblAnimais.getModel();
-        
+         modelo.setRowCount(0); // limpa tabela
         for(Animal obj: dao.listaAnimais()){
             Object[] linha = {
-                obj.getCodigo(), 
+                    obj,
                     obj.getNome(), 
                     obj.getEspecie()
                             };
@@ -299,11 +244,7 @@ public class ListaAnimaisJF extends javax.swing.JFrame {
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnRemover;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAnimais;
-    private javax.swing.JTextField txtBuscaCodigo;
     // End of variables declaration//GEN-END:variables
 }

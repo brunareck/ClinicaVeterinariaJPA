@@ -4,6 +4,7 @@
  */
 package model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -20,7 +21,7 @@ public class ConsultaDAO extends PersistenciaJPA {
             return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return new ArrayList<>();
         }
     }
 }

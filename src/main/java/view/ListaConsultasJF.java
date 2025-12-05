@@ -33,8 +33,8 @@ public class ListaConsultasJF extends javax.swing.JFrame {
         for (Consulta obj: dao.listaConsultas()){
             Object[] linha = {
                 obj,
-                obj.getAnimal(),
-                obj.getTutor()
+                obj.getAnimal().getNome(),
+                obj.getTutor().getNome()
             };
             modelo.addRow(linha);
         }
@@ -58,7 +58,7 @@ public class ListaConsultasJF extends javax.swing.JFrame {
         btnRemover = new javax.swing.JButton();
         btnInfo = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Consultas Cadastradas");
 
@@ -182,13 +182,12 @@ public class ListaConsultasJF extends javax.swing.JFrame {
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         if (tblConsultas.getSelectedRow()!= -1){
             Consulta obj = (Consulta) tblConsultas.getModel().getValueAt(tblConsultas.getSelectedRow(), 0);
-            String txtConsulta = "Consulta: {animal" + obj.getAnimal().getNome() + ", tutor: "+obj.getTutor().getNome() + "veterinario: " + obj.getVeterinario().getNome() + "}";
-            int op_remover = JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja remover " + txtConsulta + "?");
+            int op_remover = JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja remover a cosnulta?");
             if(op_remover == JOptionPane.YES_OPTION){
                 try{
                     dao.remover(obj);
                 }catch (Exception ex){
-                    System.err.println("Erro ao remover " + txtConsulta + "\n Erro: " + ex);
+                    System.err.println("Erro ao remover \n Erro: " + ex);
                 }
                 JOptionPane.showMessageDialog(rootPane, "Consulta removida com sucesso!");
                 loadConsultas();

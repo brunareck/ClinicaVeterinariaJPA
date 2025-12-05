@@ -4,19 +4,27 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Veterinario;
+import model.dao.VeterinarioDAO;
+
+
 /**
  *
  * @author bruna
  */
 public class ListaVeterinariosJF extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ListaVeterinariosJF.class.getName());
-
+    VeterinarioDAO dao;
     /**
      * Creates new form ListaVeterinariosJF
      */
     public ListaVeterinariosJF() {
         initComponents();
+        
+        dao = new VeterinarioDAO();
+        loadTabelaVeterinarios();
     }
 
     /**
@@ -28,21 +36,158 @@ public class ListaVeterinariosJF extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblVeterinarios = new javax.swing.JTable();
+        btnNovo = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnRemover = new javax.swing.JButton();
+        btnInfo = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        tblVeterinarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Nome", "CRVM"
+            }
+        ));
+        jScrollPane1.setViewportView(tblVeterinarios);
+
+        btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnRemover.setText("Remover");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
+
+        btnInfo.setText("Mais Informações");
+        btnInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInfoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnNovo)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEditar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRemover)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnInfo)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNovo)
+                    .addComponent(btnEditar)
+                    .addComponent(btnRemover)
+                    .addComponent(btnInfo))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        CadastroVeterinarioJD telaCadastro = new CadastroVeterinarioJD(this, rootPaneCheckingEnabled);
+        telaCadastro.setVisible(true);
+
+        Veterinario novoVeterinario = telaCadastro.getVeterinario();
+        if (novoVeterinario != null) {
+            try {
+                //JOptionPane.showMessageDialog(rootPane, novoVeterinario);
+                dao.persist(novoVeterinario);
+                loadTabelaVeterinarios();
+            } catch (Exception ex) {
+                System.err.println("Erro ao cadastrar Veterinario: " + ex);
+            }
+
+        }
+    }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (tblVeterinarios.getSelectedRow() != -1) {
+            Veterinario obj_veterinario = (Veterinario) tblVeterinarios.getModel().getValueAt(tblVeterinarios.getSelectedRow(), 0);
+            CadastroVeterinarioJD telaEdicao = new CadastroVeterinarioJD(this, rootPaneCheckingEnabled);
+            telaEdicao.setVeterinario(obj_veterinario);
+
+            telaEdicao.setVisible(true);
+
+            Veterinario obj_retorno = telaEdicao.getVeterinario();
+            if (obj_retorno != null) {
+                try {
+                    dao.persist(obj_retorno);
+                    loadTabelaVeterinarios();
+                } catch (Exception ex) {
+                    System.out.println("Erro ao editar Veterinario: " + ex);
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um veterinario");
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        if (tblVeterinarios.getSelectedRow() != -1) {
+            Veterinario obj_veterinario = (Veterinario) tblVeterinarios.getModel().getValueAt(tblVeterinarios.getSelectedRow(), 0);
+            int op_remover = JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja remover " + obj_veterinario + "?");
+            if (op_remover == JOptionPane.YES_OPTION) {
+                try {
+                    dao.remover(obj_veterinario);
+                } catch (Exception ex) {
+                    System.err.println("Erro ao remover veterinario: " + ex);
+                }
+                JOptionPane.showMessageDialog(rootPane, "Veterinario removido com sucesso... ");
+                loadTabelaVeterinarios();
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um veterinario");
+        }
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
+         if (tblVeterinarios.getSelectedRow() != -1) {
+            Veterinario obj_veterinario = (Veterinario) tblVeterinarios.getModel().getValueAt(tblVeterinarios.getSelectedRow(), 0);
+            JOptionPane.showMessageDialog(rootPane, obj_veterinario.exibirDados());
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um veterinario");
+        }
+    }//GEN-LAST:event_btnInfoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -53,22 +198,39 @@ public class ListaVeterinariosJF extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new ListaVeterinariosJF().setVisible(true));
+    java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ListaVeterinariosJF().setVisible(true);
+            }
+        });
+    }
+    
+     public void loadTabelaVeterinarios() {
+
+        // Obtém o modelo da tabela - vincular o que definimos no Desing
+        DefaultTableModel modelo = (DefaultTableModel) tblVeterinarios.getModel();
+        //limpar as linhas e popular 
+        modelo.setNumRows(0);
+
+        for (Veterinario veterinario : dao.listaVeterinarios()) {
+            Object[] linha = {
+                veterinario,
+                veterinario.getCrvm()
+            };
+            modelo.addRow(linha);
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnInfo;
+    private javax.swing.JButton btnNovo;
+    private javax.swing.JButton btnRemover;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblVeterinarios;
     // End of variables declaration//GEN-END:variables
 }

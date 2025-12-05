@@ -9,6 +9,7 @@ import model.Especie;
 import model.Tutor;
 import java.util.Arrays;
 import java.util.List;
+import model.dao.TutorDAO;
 
 /**
  *
@@ -16,6 +17,7 @@ import java.util.List;
  */
 public class CadastroAnimalJD extends javax.swing.JDialog {
     private Animal animal;
+    TutorDAO daoTutor;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CadastroAnimalJD.class.getName());
 
@@ -28,7 +30,16 @@ public class CadastroAnimalJD extends javax.swing.JDialog {
         loadEspecies();
         
         animal = new Animal();
+        daoTutor = new TutorDAO();
+        
+        loadTutores();
     }
+     public void loadTutores(){
+        for(Tutor obj: daoTutor.listaTutores()){
+            cmbTutor.addItem(obj);
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,7 +64,7 @@ public class CadastroAnimalJD extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Cadastro de Cliente");
+        jLabel1.setText("Cadastro de Animal");
 
         lblNome.setText("Nome");
 
@@ -150,6 +161,7 @@ public class CadastroAnimalJD extends javax.swing.JDialog {
         animal.setTutor((Tutor)cmbTutor.getSelectedItem());      
         animal.setIdade(Integer.parseInt(txtIdade.getText().trim()));
 
+        
         this.dispose();
 
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -199,7 +211,7 @@ public class CadastroAnimalJD extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<Especie> cmbEspecie;
-    private javax.swing.JComboBox<String> cmbTutor;
+    private javax.swing.JComboBox<Tutor> cmbTutor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblEspecie;
     private javax.swing.JLabel lblIdade;

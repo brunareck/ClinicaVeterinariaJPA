@@ -9,8 +9,7 @@ package view;
  * @author bruna
  */
 public class PrincipalJF extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PrincipalJF.class.getName());
+   
 
     /**
      * Creates new form PrincipalJF
@@ -30,18 +29,17 @@ public class PrincipalJF extends javax.swing.JFrame {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        miVeterinario = new javax.swing.JCheckBoxMenuItem();
-        miTutor = new javax.swing.JCheckBoxMenuItem();
-        miAnimal = new javax.swing.JCheckBoxMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jCheckBoxMenuItem4 = new javax.swing.JCheckBoxMenuItem();
+        miVeterinario = new javax.swing.JMenuItem();
+        miAnimal = new javax.swing.JMenuItem();
+        miTutor = new javax.swing.JMenuItem();
+        miConsulta = new javax.swing.JMenu();
+        miTelaConsulta = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jMenu1.setText("Cadastro");
 
-        miVeterinario.setSelected(true);
-        miVeterinario.setText("Veterinário");
+        miVeterinario.setText("Veterinario");
         miVeterinario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miVeterinarioActionPerformed(evt);
@@ -49,16 +47,6 @@ public class PrincipalJF extends javax.swing.JFrame {
         });
         jMenu1.add(miVeterinario);
 
-        miTutor.setSelected(true);
-        miTutor.setText("Tutor");
-        miTutor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miTutorActionPerformed(evt);
-            }
-        });
-        jMenu1.add(miTutor);
-
-        miAnimal.setSelected(true);
         miAnimal.setText("Animal");
         miAnimal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,15 +55,27 @@ public class PrincipalJF extends javax.swing.JFrame {
         });
         jMenu1.add(miAnimal);
 
+        miTutor.setText("Tutor");
+        miTutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miTutorActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miTutor);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Consulta");
+        miConsulta.setText("Consulta");
 
-        jCheckBoxMenuItem4.setSelected(true);
-        jCheckBoxMenuItem4.setText("Agendar Consulta");
-        jMenu2.add(jCheckBoxMenuItem4);
+        miTelaConsulta.setText("Agendar Consulta");
+        miTelaConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miTelaConsultaActionPerformed(evt);
+            }
+        });
+        miConsulta.add(miTelaConsulta);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(miConsulta);
 
         setJMenuBar(jMenuBar1);
 
@@ -98,15 +98,20 @@ public class PrincipalJF extends javax.swing.JFrame {
         telaVeterinario.setVisible(true);
     }//GEN-LAST:event_miVeterinarioActionPerformed
 
+    private void miAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAnimalActionPerformed
+        ListaAnimaisJF telaAnimal = new ListaAnimaisJF();
+        telaAnimal.setVisible(true);
+    }//GEN-LAST:event_miAnimalActionPerformed
+
     private void miTutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miTutorActionPerformed
         ListaTutoresJF telaTutor = new ListaTutoresJF();
         telaTutor.setVisible(true);
     }//GEN-LAST:event_miTutorActionPerformed
 
-    private void miAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAnimalActionPerformed
-        ListaAnimaisJF telaAnimal = new ListaAnimaisJF();
-        telaAnimal.setVisible(true);        // TODO add your handling code here:
-    }//GEN-LAST:event_miAnimalActionPerformed
+    private void miTelaConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miTelaConsultaActionPerformed
+        ListaConsultasJF telaConsultas= new ListaConsultasJF();
+        telaConsultas.setVisible(true);
+    }//GEN-LAST:event_miTelaConsultaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,17 +122,6 @@ public class PrincipalJF extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
         /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
@@ -137,12 +131,12 @@ public class PrincipalJF extends javax.swing.JFrame {
         });    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem4;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JCheckBoxMenuItem miAnimal;
-    private javax.swing.JCheckBoxMenuItem miTutor;
-    private javax.swing.JCheckBoxMenuItem miVeterinario;
+    private javax.swing.JMenuItem miAnimal;
+    private javax.swing.JMenu miConsulta;
+    private javax.swing.JMenuItem miTelaConsulta;
+    private javax.swing.JMenuItem miTutor;
+    private javax.swing.JMenuItem miVeterinario;
     // End of variables declaration//GEN-END:variables
 }

@@ -11,7 +11,6 @@ public class TestePersisteAnimal {
             System.out.println("✅ Conexão aberta com sucesso!");
             
             Animal a = new Animal();
-            a.setCodigo(0);
             a.setNome(null);
             a.setIdade(0);
             a.setEspecie(null);

@@ -25,10 +25,14 @@ public class Tutor extends Pessoa implements Serializable{
      public Tutor(){
         animais = new ArrayList<>();
     }
+    @Override
+    public String toString() {
+        return this.getNome();
+}
+
 
     @OneToMany(mappedBy = "tutor")
     private List<Animal> animais;
     
     public List<Animal> getAnimais() { return animais; }
-    public void setVendas(List<Animal> vendas) { this.animais = animais; }
 }

@@ -4,6 +4,7 @@
  */
 package model.dao;
 
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -12,15 +13,18 @@ import javax.persistence.Persistence;
 
 /**
  *
- * @author bruna
+ * @author Jonathan
  */
 public class PersistenciaJPA implements InterfaceBD {
+
     EntityManager entity;
     EntityManagerFactory factory;
 
     public PersistenciaJPA() {
+        //parametro: é o nome da unidade de persistencia (Persistence Unit)
         factory
                 = Persistence.createEntityManagerFactory("pu_clinicaveterinaria");
+        //conecta no bd e executa a estratégia de geração.
         entity = factory.createEntityManager();
     }
 
@@ -38,7 +42,7 @@ public class PersistenciaJPA implements InterfaceBD {
     @Override
     public Object find(Class c, Object id) throws Exception {
         EntityManager em = getEntityManager();
-        return em.find(c, id);
+        return em.find(c, id);//encontra um determinado registro 
     }
 
     @Override
@@ -47,7 +51,7 @@ public class PersistenciaJPA implements InterfaceBD {
         try {
             entity.getTransaction().begin();
             if (!entity.contains(o)) {
-                o = entity.merge(o);
+                o = entity.merge(o); // Anexa o objeto ao contexto de persistência, se necessário
             }
             entity.persist(o);
             entity.getTransaction().commit();
@@ -56,7 +60,7 @@ public class PersistenciaJPA implements InterfaceBD {
                 entity.getTransaction().rollback();
             }
             Logger.getLogger(PersistenciaJPA.class.getName()).log(Level.SEVERE, "Erro ao persistir a entidade: " + o.getClass().getSimpleName(), e);
-            e.printStackTrace();
+            e.printStackTrace(); // Isso imprimirá o erro completo no console
             throw e;
         }
     }
@@ -67,9 +71,9 @@ public class PersistenciaJPA implements InterfaceBD {
         try {
             entity.getTransaction().begin();
             if (!entity.contains(o)) {
-                o = entity.merge(o);
+                o = entity.merge(o); // Garantir que o objeto está no contexto de persistência
             }
-            entity.remove(o);
+            entity.remove(o); // Remover o objeto
             entity.getTransaction().commit();
         } catch (Exception e) {
             System.err.println("Erro ao remover entidade: " + o.getClass().getSimpleName());
@@ -79,10 +83,18 @@ public class PersistenciaJPA implements InterfaceBD {
             }
         }
     }
+
+    /*
+    Todos os métodos agora chamam getEntityManager() 
+    para garantir que o EntityManager esteja sempre aberto e 
+    pronto para uso.
+     */
     public EntityManager getEntityManager() {
         if (entity == null || !entity.isOpen()) {
             entity = factory.createEntityManager();
         }
         return entity;
     }
+
+    
 }

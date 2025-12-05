@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "veterinarios")
 public class Veterinario extends Pessoa implements Serializable{
-    private String crvm;
     
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Id
@@ -21,6 +20,9 @@ public class Veterinario extends Pessoa implements Serializable{
     private int id;
 
     @Column(name = "vet_crvm")
+    private String crvm;
+    
+    
     public String getCrvm() {
         return crvm;
     }

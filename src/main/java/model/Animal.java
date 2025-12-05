@@ -4,6 +4,7 @@
  */
 package model;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -16,11 +17,8 @@ public class Animal implements Serializable{
     
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Id
-    @Column(name = "ani_id")
-    private int id;
-    
     @Column(name = "ani_cod")
-    private int codigo;
+    private int id;
     
     @Column(name = "ani_nome")
     private String nome;
@@ -31,7 +29,8 @@ public class Animal implements Serializable{
     @Column(name = "ani_idade")
     private int idade;
     
-    @Column(name = "ani_tutor")
+    @ManyToOne
+    @JoinColumn(name = "ani_tutor", referencedColumnName = "tutor_id")
     private Tutor tutor;
 
     public String getNome() {
@@ -40,13 +39,6 @@ public class Animal implements Serializable{
     
     public void setNome(String nome) {
         this.nome = nome;
-    }
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
     }
 
     public int getIdade() {
@@ -72,14 +64,32 @@ public class Animal implements Serializable{
     public void setTutor(Tutor tutor) {
         this.tutor = tutor;
     }
+    
+    @Override
+    public String toString() {
+        return this.nome; 
+    }
      public String exibirDados() {
          String aux = "Animal cadastrado:\n";
-        aux += "Código: "+codigo+"\n";
         aux += "Nome: "+nome+"\n";
         aux += "Espécie: "+especie+"\n";
         aux += "Idade: "+idade+"\n";
         aux += "Tutor: "+tutor.getNome()+"\n";
         
         return aux;
+    }
+     
+      @OneToMany(mappedBy = "animal")
+    private List<Consulta> consultas;
+    
+    public List<Consulta> getConsultas() { return consultas; }
+    public void setConsultas(List<Consulta> animais) { this.consultas = consultas; }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -5,6 +5,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -26,41 +27,30 @@ public class Consulta implements Serializable {
     private int id;
     
     @Column(name = "con_data")
-    private LocalDateTime data;
+    private LocalDate data;
     
-    @Column(name = "con_descricao")
-    private String descricao;
-    
-    @Column(name = "con_animal")
-    private Animal animal;
-    
-    @Column(name = "con_veterinario")
+    @ManyToOne
+    @JoinColumn(name = "con_veterinario")
     private Veterinario veterinario;
     
-    @Column(name = "con_tutor")
+    @ManyToOne
+    @JoinColumn(name = "con_tutor")
     private Tutor tutor;
 
     @Column(name = "con_valor")
     private Double valor;
     
-    public Consulta(){
-        animais = new ArrayList<>();
-    }
+    @ManyToOne
+    @JoinColumn(name = "con_animal")
+    private Animal animal;
     
-    public LocalDateTime getData() {
+    
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(LocalDateTime data) {
+    public void setData(LocalDate data) {
         this.data = data;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
     public Animal getAnimal() {
@@ -94,25 +84,20 @@ public class Consulta implements Serializable {
         this.valor = valor;
     }
     
+    @Override
+    public String toString() {
+        return this.getData().toString(); 
+}
+
      public String exibirDados() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String aux = "Consulta cadastrada:\n";
         aux += data.format(formatter) + "\n";
-        aux += descricao + "\n";
         aux += "Animal: "+getAnimal().getNome()+"\n";
-        animal.exibirDados();
         aux += "Veterinário: "+getVeterinario().getNome()+"\n";
-        veterinario.mostrarDados();
         aux += "Tutor: "+getTutor().getNome()+"\n";
         aux += "Valor: " + valor + "\n";
         return aux;
-    }
-     
-     @OneToMany(mappedBy = "consulta")
-    private List<Animal> animais;
-    
-    public List<Animal> getAnimais() { return animais; }
-    public void setVendas(List<Animal> vendas) { this.animais = animais; }
-
+     }
 }
 
